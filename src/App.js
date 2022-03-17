@@ -1,9 +1,11 @@
+import UserTable from "./components/UserTable";
+import { MDBContainer } from 'mdb-react-ui-kit';
 
-function App() {
+const App = () => {
 	return (
-		<div className="App">
-
-		</div>
+		<MDBContainer>
+			<UserTable />
+		</MDBContainer>
 	);
 }
 
