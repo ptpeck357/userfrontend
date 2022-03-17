@@ -1,11 +1,23 @@
-import UserTable from "./components/UserTable";
-import { MDBContainer } from 'mdb-react-ui-kit';
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import Navbar from './components/Navbar';
+
+import CreateUserForm from './components/CreateUserForm';
+import UserTable from './components/UserTable';
 
 const App = () => {
 	return (
-		<MDBContainer>
-			<UserTable />
-		</MDBContainer>
+		<>
+			<Navbar />
+			<MDBRow className="mt-4">
+				<MDBCol md="4" >
+					<CreateUserForm />
+				</MDBCol>
+
+				<MDBCol md="8" >
+					<UserTable />
+				</MDBCol>
+			</MDBRow>
+		</>
 	);
 }
 
