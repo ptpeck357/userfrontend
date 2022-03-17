@@ -4,7 +4,7 @@ import toast from 'react-simple-toasts';
 
 import { baseURI } from '../utils/helpers';
 
-const CreateUserForm = ({ children, fetchData }) => {
+const CreateUserForm = ({ fetchData }) => {
 	const [userForm, setUserForm] = useState({
 		name: '',
 		email: '',
@@ -13,26 +13,26 @@ const CreateUserForm = ({ children, fetchData }) => {
 
 	const handleClick = (event) => {
 		if(userForm.name && userForm.email && userForm.phone){
+			event.preventDefault();
+
 			fetch(baseURI + '/save', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(userForm)
-
 			})
 			.then(() => {
+				toast('New user created!');
 				setUserForm({
 					name: '',
 					email: '',
 					phone: ''
 				});
-
 				fetchData();
-				toast('New user created!');
 			})
 			.catch(error => {
 				console.log(error);
 			});
-		}
+		};
 	};
 
 	const onChange = (event) => {
@@ -78,7 +78,6 @@ const CreateUserForm = ({ children, fetchData }) => {
 							<MDBBtn type="submit" onClick={handleClick}>
 								Register
 							</MDBBtn>
-							{children}
 						</div>
 					</form>
 				</MDBCardBody>

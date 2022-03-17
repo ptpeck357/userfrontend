@@ -16,3 +16,9 @@
 .row {
 	margin: 0px !important;
 }
+
+.form-inputs {
+	width: 75%;
+	margin: auto;
+	margin: 30px auto 30px auto;
+}
