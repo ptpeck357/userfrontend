@@ -1,15 +1,41 @@
 import React, { useState } from 'react';
-import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody, MDBModal, MDBModalBody } from 'mdb-react-ui-kit';
+import toast from 'react-simple-toasts';
+
+import { baseURI } from '../utils/URL';
 
 const CreateUserForm = () => {
-	const [formValue, setFormValue] = useState({
-		username: '',
+	const [userForm, setUserForm] = useState({
+		name: '',
 		email: '',
-		phonenumber: '',
+		phone: ''
 	});
 
+	const handleClick = (e) => {
+		e.preventDefault()
+
+		fetch(baseURI + '/save', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(userForm)
+
+		})
+		.then(() => {
+			toast('New user created!');
+
+			setUserForm({
+				name: '',
+				email: '',
+				phone: ''
+			});
+		})
+		.catch(error => {
+			console.log(error);
+		});
+	}
+
 	const onChange = (event) => {
-		setFormValue({ ...formValue, [event.target.name]: event.target.value });
+		setUserForm({ ...userForm, [event.target.name]: event.target.value });
 	};
 
 	return (
@@ -20,35 +46,35 @@ const CreateUserForm = () => {
 						<p className="h4 text-center py-4">Create a new user</p>
 						<div className="grey-text">
 							<MDBInput
-								id='username'
+								id='name'
 								type='text'
 								label='Name'
 								name='name'
-								// value={}
+								value={userForm.name}
 								onChange={onChange}
-								required
+								isrequired
 							/>
 							<MDBInput className='mt-3'
 								id='email'
 								type='email'
 								label='Email Address'
 								name='email'
-								// value={}
+								value={userForm.email}
 								onChange={onChange}
 								required
 							/>
 							<MDBInput className='mt-3'
-								id='phonenumber'
+								id='phone'
 								type='tel'
-								name='phonenumber'
+								name='phone'
 								label='Phone Number'
-								// value={}
+								value={userForm.phone}
 								onChange={onChange}
 								required
 							/>
 						</div>
 						<div className="text-center py-4 mt-3">
-							<MDBBtn type="submit">
+							<MDBBtn type="submit" onClick={handleClick}>
 								Register
 							</MDBBtn>
 						</div>
