@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody, MDBModal, MDBModalBody } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 import toast from 'react-simple-toasts';
 
-import { baseURI } from '../utils/URL';
+import { baseURI, fetchData } from '../utils/helpers';
 
-const CreateUserForm = () => {
+const CreateUserForm = ({ children }) => {
 	const [userForm, setUserForm] = useState({
 		name: '',
 		email: '',
@@ -28,6 +28,8 @@ const CreateUserForm = () => {
 				email: '',
 				phone: ''
 			});
+
+			fetchData();
 		})
 		.catch(error => {
 			console.log(error);
@@ -52,7 +54,7 @@ const CreateUserForm = () => {
 								name='name'
 								value={userForm.name}
 								onChange={onChange}
-								isrequired
+								required
 							/>
 							<MDBInput className='mt-3'
 								id='email'
@@ -77,6 +79,7 @@ const CreateUserForm = () => {
 							<MDBBtn type="submit" onClick={handleClick}>
 								Register
 							</MDBBtn>
+							{children}
 						</div>
 					</form>
 				</MDBCardBody>

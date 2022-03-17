@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { baseURI } from '../utils/URL';
+import { baseURI } from '../utils/helpers';
 import toast from 'react-simple-toasts';
 import EditModal from './EditModal';
 
@@ -16,18 +16,15 @@ import {
 	MDBBtn
 } from 'mdb-react-ui-kit';
 
-const UserTable = ({ userObj }) => {
-	const editUser = (userId) => {
-		<EditModal/>
-	}
-
+const UserTable = ({ userObj, fetchData }) => {
 	const deleteUser = userId => {
 		fetch(baseURI + `/delete/${userId}`, {
 			method: 'DELETE',
 			headers: { 'Content-Type': 'application/json' }
 		})
 		.then(() => {
-			toast(`User "${userId}" is deleted!`)
+			toast(`User "${userId}" is deleted!`);
+			fetchData();
 		})
 		.catch(error => {
 			console.log(error);
@@ -42,7 +39,6 @@ const UserTable = ({ userObj }) => {
 				</MDBCardTitle>
 				<hr />
 				<MDBCardBody>
-
 					{Object.keys(userObj).length === 0
 						? <h5 className='text-center'>There are no users in the database</h5>
 						: (
@@ -65,9 +61,9 @@ const UserTable = ({ userObj }) => {
 											<td>{user.email}</td>
 											<td>{user.phone}</td>
 											<td>
-												<MDBBtn tag='a' color='none' style={{ color: '#204354' }} onClick={() => editUser(user.id)}>
-													<li className="mr-2 fa fa-edit"/>
-												</MDBBtn>
+												<EditModal user={user} fetchData={fetchData}>
+													<li className="mr-2 fa fa-edit" />
+												</EditModal>
 											</td>
 											<td>
 												<MDBBtn tag='a' color='none' style={{ color: '#616161' }} onClick={() => deleteUser(user.id)}>
@@ -86,15 +82,16 @@ const UserTable = ({ userObj }) => {
 	);
 }
 
-// UserTable.propTypes = {
-// 	userObj: PropTypes.arrayOf(
-// 		PropTypes.shape({
-// 			id: PropTypes.number,
-// 			name: PropTypes.string,
-// 			email: PropTypes.email,
-// 			phone: PropTypes.number
-// 		})
-// 	)
-// };
+UserTable.propTypes = {
+	// userObj: PropTypes.arrayOf(
+	// 	PropTypes.shape({
+	// 		id: PropTypes.number,
+	// 		name: PropTypes.string,
+	// 		email: PropTypes.email,
+	// 		phone: PropTypes.number
+	// 	})
+	// )
+	fetchData: PropTypes.func
+};
 
 export default UserTable;

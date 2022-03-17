@@ -6,26 +6,14 @@ import Navbar from './components/Navbar';
 import CreateUserForm from './components/CreateUserForm';
 import UserTable from './components/UserTable';
 
-import { baseURI } from './utils/URL';
+import { fetchData } from './utils/helpers';
 
 const App = () => {
 	const [userObj, setUserObj] = useState([]);
 
-	const fetchData = () => {
-		fetch(baseURI + '/getAll', {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' }
-		})
-		.then(res => res.json())
-		.then((res) => setUserObj(res))
-		.catch(error => {
-			console.log(error);
-		});
-	}
-
 	useEffect(() => {
-		fetchData();
-	}, [userObj]);
+		fetchData(setUserObj);
+	}, []);
 
 	return (
 		<>
@@ -36,7 +24,7 @@ const App = () => {
 				</MDBCol>
 
 				<MDBCol md="8" >
-					<UserTable userObj={userObj}/>
+					<UserTable userObj={userObj} />
 				</MDBCol>
 			</MDBRow>
 		</>
