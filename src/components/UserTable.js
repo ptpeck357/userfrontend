@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import { baseURI } from '../utils/helpers';
 import toast from 'react-simple-toasts';
@@ -29,16 +28,16 @@ const UserTable = ({ userObj, fetchData }) => {
 		.catch(error => {
 			console.log(error);
 		});
-	}
+	};
 
 	return (
 		<MDBContainer>
 			<MDBCard>
 				<MDBCardTitle className='center-text'>
-					Information about our users
+					<h3>Information about our users</h3>
 				</MDBCardTitle>
 				<hr />
-				<MDBCardBody>
+				<MDBCardBody className="user-table">
 					{Object.keys(userObj).length === 0
 						? <h5 className='text-center'>There are no users in the database</h5>
 						: (
@@ -80,18 +79,6 @@ const UserTable = ({ userObj, fetchData }) => {
 			</MDBCard>
 		</MDBContainer>
 	);
-}
-
-UserTable.propTypes = {
-	// userObj: PropTypes.arrayOf(
-	// 	PropTypes.shape({
-	// 		id: PropTypes.number,
-	// 		name: PropTypes.string,
-	// 		email: PropTypes.email,
-	// 		phone: PropTypes.number
-	// 	})
-	// )
-	fetchData: PropTypes.func
 };
 
 export default UserTable;

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import CreateUserForm from './CreateUserForm';
-import { baseURI, fetchData } from '../utils/helpers';
+import { baseURI } from '../utils/helpers';
 
-import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 import toast from 'react-simple-toasts';
 
 const customStyles = {
@@ -17,49 +16,51 @@ const customStyles = {
 		marginRight: '-50%',
 		transform: 'translate(-50%, -50%)',
 		width: '500px'
-	},
+	}
 };
 
-const EditModal = ({ children, user }) => {
+const EditModal = ({ children, user, fetchData }) => {
 	const [userForm, setUserForm] = useState(user);
-	const [modalIsOpen, setIsOpen] = useState(false);
 
 	const handleClick = (e) => {
-		e.preventDefault()
+		if(userForm.name && userForm.email && userForm.phone){
+			fetch(baseURI + `/update/${user.id}`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(userForm)
 
-		fetch(baseURI + `/update/${user.id}`, {
-			method: 'PUT',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(userForm)
-
-		})
-		.then(() => {
-			toast('User updated!');
-			fetchData();
-			setUserForm(userForm);
-			closeModal();
-		})
-		.catch(error => {
-			console.log(error);
-		});
-	}
+			})
+			.then(() => {
+				toast('User updated!');
+				fetchData();
+				setUserForm(userForm);
+				closeModal();
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		}
+	};
 
 	const onChange = (event) => {
 		setUserForm({ ...userForm, [event.target.name]: event.target.value });
 	};
 
+	const [modalIsOpen, setIsOpen] = useState(false);
+
 	const openModal = () => {
 		setIsOpen(true);
-	}
+	};
+
 	const closeModal = () => {
 		setIsOpen(false);
-	}
+	};
 
 	useEffect(() => {
 		Modal.setAppElement('body');
 	});
 
-	return  (
+	return (
 		<div>
 			<MDBBtn tag='a' onClick={openModal} color='none' style={{ color: '#616161' }}>
 				{children}
@@ -111,9 +112,5 @@ const EditModal = ({ children, user }) => {
 		</div>
 	);
 };
-
-// EditModal.PropTypes = {
-// 	user: PropTypes.object
-// }
 
 export default EditModal;

@@ -2,39 +2,38 @@ import React, { useState } from 'react';
 import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 import toast from 'react-simple-toasts';
 
-import { baseURI, fetchData } from '../utils/helpers';
+import { baseURI } from '../utils/helpers';
 
-const CreateUserForm = ({ children }) => {
+const CreateUserForm = ({ children, fetchData }) => {
 	const [userForm, setUserForm] = useState({
 		name: '',
 		email: '',
 		phone: ''
 	});
 
-	const handleClick = (e) => {
-		e.preventDefault()
+	const handleClick = (event) => {
+		if(userForm.name && userForm.email && userForm.phone){
+			fetch(baseURI + '/save', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(userForm)
 
-		fetch(baseURI + '/save', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(userForm)
+			})
+			.then(() => {
+				setUserForm({
+					name: '',
+					email: '',
+					phone: ''
+				});
 
-		})
-		.then(() => {
-			toast('New user created!');
-
-			setUserForm({
-				name: '',
-				email: '',
-				phone: ''
+				fetchData();
+				toast('New user created!');
+			})
+			.catch(error => {
+				console.log(error);
 			});
-
-			fetchData();
-		})
-		.catch(error => {
-			console.log(error);
-		});
-	}
+		}
+	};
 
 	const onChange = (event) => {
 		setUserForm({ ...userForm, [event.target.name]: event.target.value });
@@ -44,35 +43,35 @@ const CreateUserForm = ({ children }) => {
 		<MDBContainer>
 			<MDBCard>
 				<MDBCardBody>
-					<form>
+					<form >
 						<p className="h4 text-center py-4">Create a new user</p>
 						<div className="grey-text">
 							<MDBInput
 								id='name'
 								type='text'
+								required
 								label='Name'
 								name='name'
 								value={userForm.name}
 								onChange={onChange}
-								required
 							/>
 							<MDBInput className='mt-3'
 								id='email'
 								type='email'
+								required
 								label='Email Address'
 								name='email'
 								value={userForm.email}
 								onChange={onChange}
-								required
 							/>
 							<MDBInput className='mt-3'
 								id='phone'
-								type='tel'
+								type='telephone'
+								required
 								name='phone'
 								label='Phone Number'
 								value={userForm.phone}
 								onChange={onChange}
-								required
 							/>
 						</div>
 						<div className="text-center py-4 mt-3">

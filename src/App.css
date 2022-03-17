@@ -8,6 +8,11 @@
 	margin-top: 2rem
 }
 
+.user-table {
+	max-height: 500px;
+	overflow: auto;
+}
+
 .row {
 	margin: 0px !important;
 }

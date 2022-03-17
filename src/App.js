@@ -6,13 +6,25 @@ import Navbar from './components/Navbar';
 import CreateUserForm from './components/CreateUserForm';
 import UserTable from './components/UserTable';
 
-import { fetchData } from './utils/helpers';
+import { baseURI } from './utils/helpers';
 
 const App = () => {
 	const [userObj, setUserObj] = useState([]);
 
+	const fetchData = () => {
+		fetch(baseURI + '/getAll', {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		})
+		.then(res => res.json())
+		.then((res) => setUserObj(res))
+		.catch(error => {
+			console.log(error);
+		});
+	}
+
 	useEffect(() => {
-		fetchData(setUserObj);
+		fetchData();
 	}, []);
 
 	return (
@@ -20,11 +32,11 @@ const App = () => {
 			<Navbar />
 			<MDBRow className="mt-4">
 				<MDBCol md="4" >
-					<CreateUserForm />
+					<CreateUserForm fetchData={fetchData} />
 				</MDBCol>
 
 				<MDBCol md="8" >
-					<UserTable userObj={userObj} />
+					<UserTable userObj={userObj} fetchData={fetchData}/>
 				</MDBCol>
 			</MDBRow>
 		</>
