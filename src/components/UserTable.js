@@ -37,7 +37,7 @@ const UserTable = ({ userObj, fetchData }) => {
 				</MDBCardTitle>
 				<hr />
 				<MDBCardBody className="user-table">
-					{Object.keys(userObj).length == 0
+					{Object.keys(userObj).length === 0
 						? <h5 className='text-center'>There are no users in the database</h5>
 						: (
 							<MDBTable striped>
