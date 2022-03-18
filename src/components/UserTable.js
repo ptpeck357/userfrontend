@@ -79,9 +79,6 @@ const UserTable = ({ userObj, fetchData }) => {
 										))}
 									</MDBTableBody>
 								</MDBTable>
-								<MDBBtn type="button" color='success' onClick={() => fetchData()}>
-									Get all users
-								</MDBBtn>
 							</>
 						)
 					}

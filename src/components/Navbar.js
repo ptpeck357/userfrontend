@@ -6,7 +6,7 @@ import { MDBContainer, MDBNavbar, MDBNavbarBrand } from 'mdb-react-ui-kit';
 		<>
 			<MDBNavbar expand='lg' dark  light style={{ backgroundColor: '#00008B' }}>
 				<MDBContainer fluid>
-					<MDBNavbarBrand tag="span" className='mb-0 h1 db'>User Table</MDBNavbarBrand>
+					<MDBNavbarBrand tag="span" className='mb-0 h1 db'>User Table Information</MDBNavbarBrand>
 				</MDBContainer>
 			</MDBNavbar>
 		</>

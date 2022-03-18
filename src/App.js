@@ -31,6 +31,7 @@ const App = () => {
 	return (
 		<>
 			<Navbar />
+
 			<MDBRow className="mt-4">
 				<MDBCol md="4" >
 					<CreateUserForm fetchData={fetchData}/>
@@ -40,6 +41,7 @@ const App = () => {
 					<UserTable userObj={userObj} fetchData={fetchData}/>
 				</MDBCol>
 			</MDBRow>
+
 			<MDBRow className="mt-4">
 				<MDBCol md="4" >
 					<SearchUser/>
