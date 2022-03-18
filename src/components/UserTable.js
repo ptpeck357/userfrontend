@@ -1,19 +1,18 @@
-import React from 'react';
 import { baseURI } from '../utils/helpers';
-import toast from 'react-simple-toasts';
+import Toast from 'react-simple-toasts';
 import EditModal from './EditModal';
 
 import {
 	MDBContainer,
-	MDBCard,
-	MDBCardBody,
-	MDBCardTitle,
+	MDBRow,
+	MDBCol,
 	MDBTable,
 	MDBTableHead,
 	MDBTableBody,
-	MDBBtn,
-	MDBRow,
-	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBCardTitle,
+	MDBBtn
 } from 'mdb-react-ui-kit';
 
 const UserTable = ({ userObj, fetchData }) => {
@@ -23,7 +22,7 @@ const UserTable = ({ userObj, fetchData }) => {
 			headers: { 'Content-Type': 'application/json' }
 		})
 		.then(() => {
-			toast(`User "${userId}" is deleted!`);
+			Toast(`User "${userId}" is deleted!`);
 			fetchData();
 		})
 		.catch(error => {
@@ -36,15 +35,15 @@ const UserTable = ({ userObj, fetchData }) => {
 			<MDBCard>
 				<MDBCardTitle className='center-text'>
 					<MDBRow>
-						<MDBCol md="3">
-							Information about our users
+						<MDBCol md="5">
+							<h3>Information about our users</h3>
 						</MDBCol>
 					</MDBRow>
 				</MDBCardTitle>
 				<hr />
 				<MDBCardBody className="user-table">
 					{Object.keys(userObj).length === 0
-						? <h5 className='text-center'>There are no users in the database</h5>
+						? <h5 className='text-center'>The table is empty. Either make an user or it means the API is down. 🐼</h5>
 						: (
 							<>
 								<MDBTable striped>

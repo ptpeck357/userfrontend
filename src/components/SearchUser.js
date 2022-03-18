@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import {
 	MDBContainer,
+	MDBRow,
+	MDBCol,
 	MDBCard,
 	MDBCardBody,
 	MDBBtn,
-	MDBCol,
-	MDBInput,
-	MDBRow
+	MDBInput
 } from 'mdb-react-ui-kit';
 
 import { baseURI } from '../utils/helpers';
 
 const SearchUser = () => {
 	const [searchedUser, setSearchedUser] = useState([]);
-	const [searchTerm, setSearchTerm] = React.useState('');
-	const [errorMessage, setErrorMessage] = React.useState('');
+	const [searchTerm, setSearchTerm] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const searchTermOnChange = event => {
-		setSearchTerm(event.target.value)
-	}
+		const value = event.target.value;
+
+		setSearchTerm(value);
+
+		if(!value){
+			setErrorMessage('');
+		};
+	};
 
 	const submitSearchTerm = event => {
 		if(searchTerm){
@@ -43,7 +50,8 @@ const SearchUser = () => {
 				setSearchedUser([res]);
 			})
 			.catch(error => {
-				setErrorMessage('No user is found.');
+				setErrorMessage('Error when trying to fetch the user.');
+
 				throw new Error(error);
 			});
 		};
@@ -56,7 +64,7 @@ const SearchUser = () => {
 					<MDBRow>
 						<MDBCol md="12">
 							<form>
-								<p className="h4 py-4">Search for an existing user</p>
+								<h4 className="py-4"><li className="fas fa-search"/>Search for an existing user</h4>
 								<div className="input-group rounded">
 									<MDBInput
 										id="searchterm"

@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import { MDBContainer, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
-import toast from 'react-simple-toasts';
+import { useState } from 'react';
+import {
+	MDBContainer,
+	MDBCard,
+	MDBCardBody,
+	MDBInput,
+	MDBBtn
+} from 'mdb-react-ui-kit';
+
+import Toast from 'react-simple-toasts';
 
 import { baseURI } from '../utils/helpers';
 
@@ -21,7 +28,8 @@ const CreateUserForm = ({ fetchData }) => {
 				body: JSON.stringify(userForm)
 			})
 			.then(() => {
-				toast('New user created!');
+				Toast('New user created!');
+
 				setUserForm({
 					name: '',
 					email: '',
@@ -44,7 +52,7 @@ const CreateUserForm = ({ fetchData }) => {
 			<MDBCard>
 				<MDBCardBody>
 					<form>
-						<p className="h4 text-center py-4">Create a new user</p>
+						<h4 className="text-center py-4"><li className="fa fa-clipboard-list"/>Create a new user</h4>
 						<div className="grey-text">
 							<MDBInput
 								id="name"

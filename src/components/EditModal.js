@@ -12,7 +12,7 @@ import {
 } from 'mdb-react-ui-kit';
 
 import { baseURI } from '../utils/helpers';
-import toast from 'react-simple-toasts';
+import Toast from 'react-simple-toasts';
 
 const EditModal = ({ children, user, fetchData }) => {
 	const [userForm, setUserForm] = useState(user);
@@ -25,10 +25,10 @@ const EditModal = ({ children, user, fetchData }) => {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(userForm)
-
 			})
 			.then(() => {
-				toast('User updated!');
+				Toast('User updated!');
+
 				setUserForm(userForm);
 				fetchData();
 				closeModal();
