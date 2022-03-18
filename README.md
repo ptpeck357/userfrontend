@@ -9,5 +9,6 @@
 
 ### Technologies/libraries used:
 * ReactJs
+* bootstrap
 * react-simple-toasts
 * mdb-react-ui-kit
