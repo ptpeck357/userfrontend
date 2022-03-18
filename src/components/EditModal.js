@@ -17,7 +17,7 @@ import toast from 'react-simple-toasts';
 const EditModal = ({ children, user, fetchData }) => {
 	const [userForm, setUserForm] = useState(user);
 
-	const handleClick = (event) => {
+	const handleClick = event => {
 		if(userForm.name && userForm.email && userForm.phone){
 			event.preventDefault();
 
@@ -34,12 +34,12 @@ const EditModal = ({ children, user, fetchData }) => {
 				closeModal();
 			})
 			.catch(error => {
-				console.log(error);
+				throw new Error(error);
 			});
 		};
 	};
 
-	const onChange = (event) => {
+	const onChange = event => {
 		setUserForm({ ...userForm, [event.target.name]: event.target.value });
 	};
 
@@ -98,14 +98,9 @@ const EditModal = ({ children, user, fetchData }) => {
 								/>
 							</div>
 							<MDBModalFooter>
-								<MDBBtn color='secondary' onClick={closeModal}>
-									Close
+								<MDBBtn className='ml-4' type="submit" onClick={handleClick}>
+									Update
 								</MDBBtn>
-								<div className="text-center">
-									<MDBBtn className='ml-4' type="submit" onClick={handleClick}>
-										Update
-									</MDBBtn>
-								</div>
 							</MDBModalFooter>
 						</form>
 					</MDBModalContent>

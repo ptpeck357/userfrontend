@@ -20,7 +20,7 @@ const App = () => {
 		.then(res => res.json())
 		.then((res) => setUserObj(res))
 		.catch(error => {
-			console.log(error);
+			throw new Error(error);
 		});
 	}
 

@@ -35,7 +35,6 @@ const SearchUser = () => {
 				return res.json();
 			})
 			.then((res) => {
-				console.log(res)
 				if(res.status === 500){
 					return setSearchedUser([]);
 				}
@@ -47,18 +46,17 @@ const SearchUser = () => {
 				setErrorMessage('No user is found.');
 				throw new Error(error);
 			});
-			setSearchedUser([]);
 		};
 	};
 
 	return (
 		<MDBContainer>
 			<MDBCard>
-				<MDBCardBody style={{height: '275px'}}>
+				<MDBCardBody style={{ height: '275px' }}>
 					<MDBRow>
 						<MDBCol md="12">
 							<form>
-								<p className="h4 text-center py-4">Search an existing user</p>
+								<p className="h4 py-4">Search for an existing user</p>
 								<div className="input-group rounded">
 									<MDBInput
 										id="searchterm"

@@ -35,7 +35,7 @@ const CreateUserForm = ({ fetchData }) => {
 		};
 	};
 
-	const onChange = (event) => {
+	const onChange = event => {
 		setUserForm({ ...userForm, [event.target.name]: event.target.value });
 	};
 
