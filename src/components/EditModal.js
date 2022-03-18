@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { baseURI } from '../utils/helpers';
 
 import {
 	MDBBtn,
@@ -12,6 +11,7 @@ import {
 	MDBInput
 } from 'mdb-react-ui-kit';
 
+import { baseURI } from '../utils/helpers';
 import toast from 'react-simple-toasts';
 
 const EditModal = ({ children, user, fetchData }) => {
@@ -76,7 +76,8 @@ const EditModal = ({ children, user, fetchData }) => {
 									onChange={onChange}
 									required
 								/>
-								<MDBInput className='mt-3'
+								<MDBInput
+									className='mt-3'
 									id='email'
 									type='email'
 									label='Email Address'
@@ -85,7 +86,8 @@ const EditModal = ({ children, user, fetchData }) => {
 									onChange={onChange}
 									required
 								/>
-								<MDBInput className='mt-3'
+								<MDBInput
+									className='mt-3'
 									id='phone'
 									type='tel'
 									name='phone'

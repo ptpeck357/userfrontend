@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 
 import CreateUserForm from './components/CreateUserForm';
 import UserTable from './components/UserTable';
+import SearchUser from './components/SearchUser';
 
 import { baseURI } from './utils/helpers';
 
@@ -32,15 +33,20 @@ const App = () => {
 			<Navbar />
 			<MDBRow className="mt-4">
 				<MDBCol md="4" >
-					<CreateUserForm fetchData={fetchData} />
+					<CreateUserForm fetchData={fetchData}/>
 				</MDBCol>
 
 				<MDBCol md="8" >
 					<UserTable userObj={userObj} fetchData={fetchData}/>
 				</MDBCol>
 			</MDBRow>
+			<MDBRow className="mt-4">
+				<MDBCol md="4" >
+					<SearchUser/>
+				</MDBCol>
+			</MDBRow>
 		</>
 	);
-}
+};
 
 export default App;

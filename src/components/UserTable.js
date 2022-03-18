@@ -11,7 +11,9 @@ import {
 	MDBTable,
 	MDBTableHead,
 	MDBTableBody,
-	MDBBtn
+	MDBBtn,
+	MDBRow,
+	MDBCol,
 } from 'mdb-react-ui-kit';
 
 const UserTable = ({ userObj, fetchData }) => {
@@ -25,7 +27,7 @@ const UserTable = ({ userObj, fetchData }) => {
 			fetchData();
 		})
 		.catch(error => {
-			console.log(error);
+			throw new Error(error);
 		});
 	};
 
@@ -33,45 +35,54 @@ const UserTable = ({ userObj, fetchData }) => {
 		<MDBContainer>
 			<MDBCard>
 				<MDBCardTitle className='center-text'>
-					Information about our users
+					<MDBRow>
+						<MDBCol md="3">
+							Information about our users
+						</MDBCol>
+					</MDBRow>
 				</MDBCardTitle>
 				<hr />
 				<MDBCardBody className="user-table">
 					{Object.keys(userObj).length === 0
 						? <h5 className='text-center'>There are no users in the database</h5>
 						: (
-							<MDBTable striped>
-								<MDBTableHead>
-									<tr>
-										<th scope='col'>ID</th>
-										<th scope='col'>Name</th>
-										<th scope='col'>Email</th>
-										<th scope='col'>Phone Number</th>
-										<th scope='col'>Edit</th>
-										<th scope='col'>Delete</th>
-									</tr>
-								</MDBTableHead>
-								<MDBTableBody>
-									{userObj.map(user => (
-										<tr key={user.id}>
-											<th scope='row'>{user.id}</th>
-											<td>{user.name}</td>
-											<td>{user.email}</td>
-											<td>{user.phone}</td>
-											<td>
-												<EditModal user={user} fetchData={fetchData}>
-													<li className="mr-2 fa fa-edit" />
-												</EditModal>
-											</td>
-											<td>
-												<MDBBtn tag='a' color='none' style={{ color: '#616161' }} onClick={() => deleteUser(user.id)}>
-													<li className="mr-2 fa fa-trash" />
-												</MDBBtn>
-											</td>
+							<>
+								<MDBTable striped>
+									<MDBTableHead>
+										<tr>
+											<th scope='col'>Id</th>
+											<th scope='col'>Name</th>
+											<th scope='col'>Email</th>
+											<th scope='col'>Phone Number</th>
+											<th scope='col'>Edit</th>
+											<th scope='col'>Delete</th>
 										</tr>
-									))}
-								</MDBTableBody>
-							</MDBTable>
+									</MDBTableHead>
+									<MDBTableBody>
+										{userObj.map(user => (
+											<tr key={user.id}>
+												<th scope='row'>{user.id}</th>
+												<td>{user.name}</td>
+												<td>{user.email}</td>
+												<td>{user.phone}</td>
+												<td>
+													<EditModal user={user} fetchData={fetchData}>
+														<li className="mr-2 fa fa-edit" />
+													</EditModal>
+												</td>
+												<td>
+													<MDBBtn type="submit" tag='a' color='none' style={{ color: '#616161' }} onClick={() => deleteUser(user.id)}>
+														<li className="mr-2 fa fa-trash" />
+													</MDBBtn>
+												</td>
+											</tr>
+										))}
+									</MDBTableBody>
+								</MDBTable>
+								<MDBBtn type="button" color='success' onClick={() => fetchData()}>
+									Get all users
+								</MDBBtn>
+							</>
 						)
 					}
 				</MDBCardBody>

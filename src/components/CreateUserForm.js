@@ -11,7 +11,7 @@ const CreateUserForm = ({ fetchData }) => {
 		phone: ''
 	});
 
-	const handleClick = (event) => {
+	const handleClick = event => {
 		if(userForm.name && userForm.email && userForm.phone){
 			event.preventDefault();
 
@@ -30,7 +30,7 @@ const CreateUserForm = ({ fetchData }) => {
 				fetchData();
 			})
 			.catch(error => {
-				console.log(error);
+				throw new Error(error);
 			});
 		};
 	};
@@ -43,33 +43,33 @@ const CreateUserForm = ({ fetchData }) => {
 		<MDBContainer>
 			<MDBCard>
 				<MDBCardBody>
-					<form >
+					<form>
 						<p className="h4 text-center py-4">Create a new user</p>
 						<div className="grey-text">
 							<MDBInput
-								id='name'
-								type='text'
+								id="name"
+								type="text"
 								required
-								label='Name'
-								name='name'
+								label="Name"
+								name="name"
 								value={userForm.name}
 								onChange={onChange}
 							/>
-							<MDBInput className='mt-3'
-								id='email'
-								type='email'
+							<MDBInput className="mt-3"
+								id="email"
+								type="email"
 								required
-								label='Email Address'
-								name='email'
+								label="Email Address"
+								name="email"
 								value={userForm.email}
 								onChange={onChange}
 							/>
-							<MDBInput className='mt-3'
-								id='phone'
-								type='telephone'
+							<MDBInput className="mt-3"
+								id="phone"
+								type="tel"
 								required
-								name='phone'
-								label='Phone Number'
+								name="phone"
+								label="Phone Number"
 								value={userForm.phone}
 								onChange={onChange}
 							/>
