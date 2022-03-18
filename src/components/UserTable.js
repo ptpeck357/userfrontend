@@ -19,7 +19,10 @@ const UserTable = ({ userObj, fetchData }) => {
 	const deleteUser = userId => {
 		fetch(baseURI + `/delete/${userId}`, {
 			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' }
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			}
 		})
 		.then(() => {
 			Toast(`User "${userId}" is deleted!`);

@@ -23,7 +23,10 @@ const EditModal = ({ children, user, fetchData }) => {
 
 			fetch(baseURI + `/update/${user.id}`, {
 				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
 				body: JSON.stringify(userForm)
 			})
 			.then(() => {

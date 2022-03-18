@@ -15,7 +15,10 @@ const App = () => {
 	const fetchData = () => {
 		fetch(baseURI + '/getAll', {
 			method: 'GET',
-			headers: { 'Content-Type': 'application/json' }
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			}
 		})
 		.then(res => res.json())
 		.then((res) => setUserObj(res))
@@ -35,16 +38,12 @@ const App = () => {
 			<MDBRow className="mt-4">
 				<MDBCol md="4" >
 					<CreateUserForm fetchData={fetchData}/>
+					<br />
+					<SearchUser/>
 				</MDBCol>
 
 				<MDBCol md="8" >
 					<UserTable userObj={userObj} fetchData={fetchData}/>
-				</MDBCol>
-			</MDBRow>
-
-			<MDBRow className="mt-4">
-				<MDBCol md="4" >
-					<SearchUser/>
 				</MDBCol>
 			</MDBRow>
 		</>
